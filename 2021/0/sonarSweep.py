@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-import unittest
 
 list = []
 with open('input.txt', encoding='utf8') as input:
