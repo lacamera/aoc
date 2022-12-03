@@ -1,0 +1,43 @@
+#!/usr/bin/python3
+import sys
+
+def calculatePosition(list):
+  hor = depth = 0
+  for l in list:
+    cmd = l.split(' ')[0]
+    mod = int(l.split(' ')[1])
+    if cmd == 'forward':
+      hor += mod
+    elif cmd == 'down':
+      depth += mod
+    elif cmd == 'up':
+      depth -= mod
+
+  return hor * depth
+
+def calculatePositionWithAim(list):
+  aim = hor = depth = 0
+  for l in list:
+    cmd = l.split(' ')[0]
+    mod = int(l.split(' ')[1])
+    if cmd == 'forward':
+      hor += mod
+      depth += aim * mod
+    elif cmd == 'down':
+      aim += mod
+    elif cmd == 'up':
+      aim -= mod
+
+  return hor * depth
+
+if __name__ == "__main__":
+  if len(sys.argv) != 2:
+    quit
+
+  l = []
+  with open(sys.argv[1], encoding='utf8') as input:
+    for line in input:
+      l.append(line.strip())
+
+  print(calculatePosition(l))
+  print(calculatePositionWithAim(l))

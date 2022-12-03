@@ -1,38 +1,33 @@
 #!/usr/bin/python3
-list = []
-with open('1_test', encoding='utf8') as input:
+import sys
+
+def countIncrements(list):
+  count = 0
+  previous = None
+  for current in list:
+    if previous and current > previous:
+      count += 1
+    previous = current
+  return count
+
+def countIncrementsSliding(list, step=3):
+  count = 0
+  previous = None
+  stop = (len(list)-(step-1))
+  for index in range(0, stop):
+    current = sum(list[index:index+step])
+    if previous and current > previous:
+      count += 1
+    previous = current
+  return count
+
+if __name__ == "__main__":
+  if len(sys.argv) != 2:
+    quit
+
+  l = []
+  with open(sys.argv[1], encoding='utf8') as input:
     for line in input:
-        list.append(line.strip())
-
-def calculatePosition(list):
-    hor = depth = pos = 0
-    for instruction in list:
-        data = instruction.split(' ')
-        direction = data[0]
-        unit = int(data[1])
-        if direction == 'forward':
-            hor += unit
-        elif direction == 'down':
-            depth += unit
-        elif direction == 'up':
-            depth -= unit
-    pos = hor * depth
-    return pos
-
-def calculatePositionWithAim(list):
-    aim = hor = depth = pos = 0
-    for instruction in list:
-        direction = instruction.split(' ')[0]
-        unit = int(instruction.split(' ')[1])
-        if direction == 'forward':
-            hor += unit
-            depth += aim * unit
-        elif direction == 'down':
-            aim += unit
-        elif direction == 'up':
-            aim -= unit
-    pos = hor * depth
-    return pos
-
-print(calculatePosition(list))
-print(calculatePositionWithAim(list))
+      l.append(int(line.strip()))
+  print(countIncrements(l))
+  print(countIncrementsSliding(l))
