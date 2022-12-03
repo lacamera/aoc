@@ -1,8 +1,17 @@
-#!/usr/bin/env bash
-[ ! -f "$1" ] && exit
-cat "$1" | paste -sd+ | sed 's/++/\n/g' | sed 's/+*$//g' \
-  | bc | sort -n | tail -1
+#!/bin/sh
+set -eu
 
-cat "$1" | paste -sd+ | sed 's/++/\n/g' | sed 's/+*$//g' \
-  | bc | sort -n | tail -3 | paste -sd+ | bc
+one() {
+  paste -sd+ < "$fn" | sed 's/++/\n/g' | sed 's/+*$//g' \
+    | bc | sort -n | tail -1
+}
 
+two() {
+  paste -sd+ < "$fn" | sed 's/++/\n/g' | sed 's/+*$//g' \
+    | bc | sort -n | tail -3 | paste -sd+ | bc
+}
+
+fn="$1"
+[ ! -f "$fn" ] && exit
+one
+two
