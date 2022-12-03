@@ -1,10 +1,8 @@
 #!/usr/bin/python3
-
 list = []
-with open('input.txt', encoding='utf8') as input:
+with open('1_test', encoding='utf8') as input:
     for line in input:
         list.append(line.strip())
-
 
 def calculatePosition(list):
     hor = depth = pos = 0
@@ -21,7 +19,6 @@ def calculatePosition(list):
     pos = hor * depth
     return pos
 
-
 def calculatePositionWithAim(list):
     aim = hor = depth = pos = 0
     for instruction in list:
@@ -37,3 +34,5 @@ def calculatePositionWithAim(list):
     pos = hor * depth
     return pos
 
+print(calculatePosition(list))
+print(calculatePositionWithAim(list))

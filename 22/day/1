@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+[ ! -f "$1" ] && exit
+cat "$1" | paste -sd+ | sed 's/++/\n/g' | sed 's/+*$//g' \
+  | bc | sort -n | tail -1
+
+cat "$1" | paste -sd+ | sed 's/++/\n/g' | sed 's/+*$//g' \
+  | bc | sort -n | tail -3 | paste -sd+ | bc
+
